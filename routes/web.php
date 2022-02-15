@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\LojaController;
+use App\Http\Controllers\PrincipalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('/cliente', ClienteController::class);
-Route::resource('/loja', ClienteController::class);
-
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('auth')->group(function () {
+    Route::resource('/cliente', ClienteController::class);
+    Route::resource('/loja', LojaController::class);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/', [PrincipalController::class, 'index'])->name('principal.index');
+Route::get('/login', [PrincipalController::class, 'login'])->name('principal.login');
+Route::post('/login', [PrincipalController::class, 'autorizate'])->name('principal.login');
+Route::get('/logout', [PrincipalController::class, 'logout'])->name('principal.logout');
+Route::get('/register', [PrincipalController::class, 'registerShow'])->name('principal.register');
+Route::post('/register', [PrincipalController::class, 'register'])->name('principal.register');

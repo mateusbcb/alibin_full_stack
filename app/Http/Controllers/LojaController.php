@@ -13,7 +13,7 @@ class LojaController extends Controller
      */
     public function index()
     {
-        //
+        return view('loja.lojas');
     }
 
     /**
