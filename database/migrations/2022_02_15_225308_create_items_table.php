@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLojasTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLojasTable extends Migration
      */
     public function up()
     {
-        Schema::create('lojas', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('cliente_id');
             $table->string('nome');
@@ -21,7 +21,7 @@ class CreateLojasTable extends Migration
             $table->string('codigo');
             $table->timestamps();
 
-            $table->foreign('cliente_id')->references('cliente')->on('id');
+            $table->foreign('cliente_id')->references('clientes')->on('id');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateLojasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lojas');
+        Schema::dropIfExists('items');
     }
 }

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Actions\Fortify;
 
 class PrincipalController extends Controller
 {
@@ -28,8 +29,10 @@ class PrincipalController extends Controller
     
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-    
-            return redirect()->intended('/')->with('success', 'Login realizado com sucesso!');
+
+            $user = User::where('email', $request->email)->first();
+            
+            return redirect()->intended('/')->with('success', 'Olá '.$user->name.'!');
         }
     
         return back()->withErrors([
@@ -51,13 +54,25 @@ class PrincipalController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate(['email' => 'exists:users,email'], ['email.exists' => 'E-mail já cadastrado!']);
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
+        $regras = [
+            'name' => 'required',
+            'email' => 'required|exists:users,email',
+            'password' => 'required',
+            'password_confirmation' => 'required',
+        ];
 
+        $feedback = [
+            'required' => 'O campo :attribute é obrigatório!',
+            'email.exists' => 'E-mail já cadastrado!'
+        ];
+
+        // $request->validate($regras, $feedback);
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->password = Hash::make($request->input('password'));
+        $user->email = $request->input('email');
+        $user->save();
+        
         return redirect()->intended('/');
     }
 }

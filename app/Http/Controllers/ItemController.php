@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\item;
 use Illuminate\Http\Request;
 
-class LojaController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,11 @@ class LojaController extends Controller
      */
     public function index()
     {
-        return view('loja.lojas');
+        $items = item::all();
+
+        return view('item.items', [
+            'itens' => $items,
+        ]);
     }
 
     /**

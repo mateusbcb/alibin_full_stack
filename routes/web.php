@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\LojaController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PrincipalController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware('auth')->group(function () {
     Route::resource('/cliente', ClienteController::class);
-    Route::resource('/loja', LojaController::class);
+    Route::resource('/item', ItemController::class);
 });
 
 Route::get('/', [PrincipalController::class, 'index'])->name('principal.index');
