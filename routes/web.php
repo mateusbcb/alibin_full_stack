@@ -15,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/angular', function () {
+    return view('angular');
+});
+
 Route::middleware('auth')->group(function () {
     Route::resource('/cliente', ClienteController::class);
+    Route::get('/consulta', [ClienteController::class, 'consult'])->name('cliente.consult');
     Route::resource('/item', ItemController::class);
 });
 

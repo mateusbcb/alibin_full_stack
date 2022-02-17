@@ -18,11 +18,11 @@ class CreateClientesTable extends Migration
             $table->string('nome');
             $table->string('telefone');
             $table->string('documento');
-            $table->string('uf');
-            $table->string('municipio');
-            $table->string('cep');
-            $table->string('rua');
-            $table->string('complemento');
+            $table->string('uf')->nullable();
+            $table->string('municipio')->nullable();
+            $table->string('cep')->nullable();
+            $table->string('rua')->nullable();
+            $table->string('complemento')->nullable();
             $table->timestamps();
         });
     }

@@ -32,7 +32,7 @@ class PrincipalController extends Controller
 
             $user = User::where('email', $request->email)->first();
             
-            return redirect()->intended('/')->with('success', 'Olá '.$user->name.'!');
+            return redirect()->intended('/')->with('success', 'Olá, '.$user->name.'!');
         }
     
         return back()->withErrors([

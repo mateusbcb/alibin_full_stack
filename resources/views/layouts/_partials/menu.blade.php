@@ -13,7 +13,7 @@
                     <a class="nav-link" aria-current="page" href="{{ route('cliente.index') }}">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ route('loja.index') }}">Lojas</a>
+                    <a class="nav-link" aria-current="page" href="{{ route('item.index') }}">Itens</a>
                 </li>
         </ul>
         <ul class="navbar-nav">

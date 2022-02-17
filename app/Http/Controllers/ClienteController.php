@@ -28,7 +28,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('cliente.create');
     }
 
     /**
@@ -39,7 +39,27 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $regras = [
+            'nome'      => 'required|min:3|max:40',
+            'telefone'  => 'required',
+            'documento' => 'required',
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute é obrigatório.',
+            'nome.min' => 'o campo nome precisa ter no minimo 3 caracteres.',
+            'nome.max' => 'o campo nome precisa ter no máximo 40 caracteres.',
+        ];
+
+        $request->validate($regras, $feedback);
+
+        $clienteSave = Cliente::create($request->all())->with('success', 'Cliente cadstrado com sucesso');
+
+        if ($clienteSave) {
+            return redirect()->route('cliente.index')->with('success', 'Cliente Criado Com sucesso!');
+        }
+
+        return redirect()->back()->with('error', 'Problema ao criar um novo cliente!');
     }
 
     /**
@@ -82,8 +102,10 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete();
+
+        return redirect()->route('cliente.index')->with('success', 'Cliente excluido com sucesso!');
     }
 }
