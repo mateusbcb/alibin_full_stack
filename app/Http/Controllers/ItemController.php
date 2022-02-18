@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
+use App\Models\Cliente_Item;
 use App\Models\item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -12,12 +15,13 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = item::all();
+        $items = item::paginate(10);
 
         return view('item.items', [
-            'itens' => $items,
+            'items' => $items,
+            'request' => $request->all(),
         ]);
     }
 
@@ -26,9 +30,11 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Cliente $clientes)
     {
-        //
+        return view('item.create', [
+            'clientes' => $clientes->all(),
+        ]);
     }
 
     /**
@@ -39,7 +45,9 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        item::create($request->all());
+
+        return redirect()->route('item.index')->with('success', 'Item criado com sucesso!');
     }
 
     /**
@@ -71,9 +79,11 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Item $item)
     {
-        //
+        $item->update($request->all());
+
+        return redirect()->route('item.index')->with('success', 'Item atualizado com sucesso!');
     }
 
     /**
@@ -82,8 +92,56 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Item $item)
     {
-        //
+        $item->delete();
+
+        return redirect()->back()->with('success', 'Item excluido com sucesso!');
+    }
+
+    public function adicionarShow($id)
+    {
+        $cliente = Cliente::find($id);
+        
+        $items = Item::all();
+
+        return view('item.adicionar_show', [
+            'items' => $items,
+            'cliente' => $cliente,
+        ]);
+    }
+
+    public function adicionar(Cliente $cliente, Request $request)
+    {
+        $regras = [
+            'item' => 'exists:items,id|required',
+        ];
+
+        $feedback = [
+            'exists' => 'Item não encontrado',
+        ];
+
+        $request->validate($regras, $feedback);
+
+        $clienteItem = new Cliente_Item();
+        $user_id =Auth::user()->id;
+
+        $clienteItem->cliente_id = $cliente->id;
+        $clienteItem->item_id = $request->item;
+        $clienteItem->user_id = $user_id;
+
+        $clienteItem->save();
+
+        return redirect()->route('item.adicionar', $cliente->id)->with('success', 'Item adicionado com sucesso');
+    }
+
+    public function remover(Cliente $cliente, item $item)
+    {
+        
+        $clienteItem = new Cliente_Item();
+
+        $clienteItem->where('item_id', $item->id)->where('cliente_id', $cliente->id)->delete();
+        
+        return redirect()->route('item.adicionar', $cliente->id)->with('success', 'Item removido com sucesso!');
     }
 }

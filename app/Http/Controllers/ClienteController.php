@@ -12,12 +12,13 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::paginate(10);
 
         return view('cliente.clientes', [
             'clientes' => $clientes,
+            'request' => $request->all(),
         ]);
     }
 
@@ -56,7 +57,7 @@ class ClienteController extends Controller
         $clienteSave = Cliente::create($request->all())->with('success', 'Cliente cadstrado com sucesso');
 
         if ($clienteSave) {
-            return redirect()->route('cliente.index')->with('success', 'Cliente Criado Com sucesso!');
+            return redirect()->route('cliente.index')->with('success', 'Cliente criado Com sucesso!');
         }
 
         return redirect()->back()->with('error', 'Problema ao criar um novo cliente!');
@@ -68,9 +69,11 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cliente $cliente)
     {
-        //
+        return view('cliente.show', [
+            'cliente' => $cliente,
+        ]);
     }
 
     /**
@@ -91,9 +94,11 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cliente $cliente)
     {
-        //
+        $cliente->update($request->all());
+
+        return redirect()->back()->with('success', 'Cliente editado com sucesso!');
     }
 
     /**

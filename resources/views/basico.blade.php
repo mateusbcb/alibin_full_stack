@@ -7,16 +7,20 @@
     <title>Teste Alibin - @yield('title')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="{{ asset('css/basico.css') }}">
 </head>
-<body>
+<body class="bg-light">
 
+    @include('layouts._partials.menu')
+    @component('layouts._components.alerts')
+        
+    @endcomponent
     <div class="container-fluid">
-        @include('layouts._partials.menu')
-        @component('layouts._components.alerts')
-            
-        @endcomponent
-        @yield('content')
+        <div class="row mt-2 px-3">
+            <div class="col-8 mx-auto">
+                @yield('content')
+            </div>
+        </div>
     </div>
 
     

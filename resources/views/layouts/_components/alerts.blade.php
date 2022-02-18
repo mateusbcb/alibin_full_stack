@@ -1,5 +1,5 @@
 @if (session('error'))
-    <div class="alert alert-dangger text-center">
+    <div class="alert alert-danger text-center">
         {{ session('error') }}
     </div>
 @endif

@@ -42,8 +42,9 @@ class PrincipalController extends Controller
 
     public function logout()
     {
+        
         Auth::logout();
-
+        
         return redirect()->route('principal.index');
     }
 

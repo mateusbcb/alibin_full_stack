@@ -18,6 +18,12 @@ class item extends Model
     public function cliente()
     {
         // belongsTo - pertence a
-        return $this->belongsTo('App\Models\Cliente');
+        return $this->belongsToMany('App\Models\Cliente', 'cliente_item', 'item_id', 'cliente_id');
+    }
+
+    public function user()
+    {
+        // belongsToMany - pertence a muitos
+        return $this->belongsToMany('App\Models\User', 'cliente_item', 'item_id', 'user_id');
     }
 }
