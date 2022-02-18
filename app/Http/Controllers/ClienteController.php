@@ -82,9 +82,11 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cliente $cliente)
     {
-        //
+        return view('cliente.create', [
+            'cliente' => $cliente,
+        ]);
     }
 
     /**
@@ -112,5 +114,27 @@ class ClienteController extends Controller
         $cliente->delete();
 
         return redirect()->route('cliente.index')->with('success', 'Cliente excluido com sucesso!');
+    }
+
+    public function consulta()
+    {
+        return view('cliente.consulta');
+    }
+
+    public function consultar(Request $request)
+    {
+        $clientes = Cliente::where('nome', 'like', '%'.$request->nome.'%')
+        ->where('telefone', 'like', '%'.$request->telefone.'%')
+        ->where('documento', 'like', '%'.$request->documento.'%')
+        ->where('cep', 'like', '%'.$request->cep.'%')
+        ->where('rua', 'like', '%'.$request->rua.'%')
+        ->where('municipio', 'like', '%'.$request->municipio.'%')
+        ->where('complemento', 'like', '%'.$request->complemento.'%')
+        ->where('uf', 'like', '%'.$request->uf.'%')
+        ->paginate(10);
+        return view('cliente.clientes', [
+            'clientes' => $clientes,
+            'request' => $request->all(),
+        ]);
     }
 }

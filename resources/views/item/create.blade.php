@@ -5,13 +5,13 @@
 @section('content')
     
     <div class="col mx-auto">
-        <h1 class="mt-5">Itens</h1>
-        <div class="col-8 mx-auto">
+        <h1 class="mt-5">ITENS</h1>
+        <div class="col-10 mx-auto">
             @component('item._components.subMenu')
             
             @endcomponent
             <form action="{{ route('item.store') }}" class="row g-3 needs-validation" method="POST" novalidate>
-                <div class="bg-white p-4 rounded">
+                <div class="bg-white p-4 mb-3 rounded">
                     @csrf
                     
                     <div class="form-floating mb-3">

@@ -144,4 +144,22 @@ class ItemController extends Controller
         
         return redirect()->route('item.adicionar', $cliente->id)->with('success', 'Item removido com sucesso!');
     }
+
+    public function consulta()
+    {
+        return view('item.consulta');
+    }
+
+    public function consultar(Request $request)
+    {
+        $items = Item::where('nome', 'like', '%'.$request->nome.'%')
+        ->where('preco', 'like', '%'.$request->preco.'%')
+        ->where('codigo', 'like', '%'.$request->codigo.'%')
+        ->paginate(10);
+
+        return view('item.items', [
+            'items' => $items,
+            'request' => $request->all(),
+        ]);
+    }
 }

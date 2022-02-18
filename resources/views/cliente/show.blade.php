@@ -5,13 +5,13 @@
 @section('content')
 
     <div class="col mx-auto">
-        <h1 class="mt-5">Cliente - {{ $cliente->nome }}</h1>
-        <div class="col-8 mx-auto">
+        <h1 class="mt-5">CLIENTE - {{ $cliente->nome }}</h1>
+        <div class="col-10 mx-auto">
             @component('cliente._components.subMenu')
             
             @endcomponent
             <div class="table-responsive">
-                <div class="bg-white p-4 rounded">
+                <div class="bg-white p-4 mb-3 rounded">
                     <table class="table table-hover text-center" id="sortTable">
                         <tr>	
                             <td>nome:</td>
@@ -47,6 +47,7 @@
                         </tr>
                     </table>
                 </div>
+                <a href="{{ route('cliente.edit', $cliente->id) }}" class="btn btn-primary">Editar</a>
             </div>
         </div>
     </div>

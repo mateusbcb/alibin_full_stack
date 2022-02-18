@@ -3,6 +3,16 @@
     --bs-primary: #33cccc !important;
 }
 
+html *{
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Source Sans 3', sans-serif; */
+    /* font-family: 'Poppins', sans-serif; */
+}
+
 .navbar-light .navbar-nav .nav-link{
     color: #13304D;
 }

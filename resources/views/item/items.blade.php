@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="col mx-auto">
-        <h1 class="mt-5">Itens</h1>
-        <div class="col-8 mx-auto">
+        <h1 class="mt-5">ITENS</h1>
+        <div class="col-10 mx-auto">
             @component('item._components.subMenu')
             
             @endcomponent
             <div class="table-responsive">
-                <div class="bg-white p-4 rounded">
+                <div class="bg-white p-4 mb-3 rounded">
                     <table class="table table-hover text-center" id="sortTable">
                         <thead>
                             <th class="col" onclick="sortTable(0)">ID</th>
@@ -37,6 +37,24 @@
                                                         <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : ''}}" id="nome" name="nome" value="{{ $item->nome ?? old('nome') }}" placeholder="Nome" required style="font-size: 14px">
                                                         <label for="nome" style="font-size: 14px">Nome do item</label>
                                                         @error('nome')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" class="form-control {{ $errors->has('preco') ? 'is-invalid' : ''}}" id="preco" name="preco" value="{{ $item->preco ?? old('preco') }}" placeholder="preco" required style="font-size: 14px">
+                                                        <label for="preco" style="font-size: 14px">preco do item</label>
+                                                        @error('preco')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" class="form-control {{ $errors->has('codigo') ? 'is-invalid' : ''}}" id="codigo" name="codigo" value="{{ $item->codigo ?? old('codigo') }}" placeholder="codigo" required style="font-size: 14px">
+                                                        <label for="codigo" style="font-size: 14px">codigo do item</label>
+                                                        @error('codigo')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
                                                             </div>

@@ -4,18 +4,20 @@
 
 @section('content')
     <div class="col mx-auto">
-        <h1 class="mt-5">Clientes</h1>
-        <div class="col-8 mx-auto">
+        <h1 class="mt-5">CLIENTES</h1>
+        <div class="col-10 mx-auto">
             @component('cliente._components.subMenu')
             
             @endcomponent
             <div class="table-responsive">
-                <div class="bg-white p-4 rounded">
+                <div class="bg-white p-4 mb-3 rounded">
                     <table class="table table-hover text-center" id="sortTable">
                         <thead>
-                            <th class="col-1" onclick="sortTable(0)">ID</th>
-                            <th class="col-6" onclick="sortTable(1)">Nome</th>
-                            <th class="col-2">Ações</th>
+                            <th class="col-0" onclick="sortTable(0)">ID</th>
+                            <th class="col" onclick="sortTable(1)">Nome</th>
+                            <th class="col" onclick="sortTable(1)">Telefone</th>
+                            <th class="col" onclick="sortTable(1)">Documento</th>
+                            <th class="col-3">Ações</th>
                         </thead>
                         <tbody>
                             @foreach ($clientes as $cliente)
@@ -60,7 +62,7 @@
                                                     </div>
                                                 </div>
                                             @else
-                                                <p>Cliente {{ $cliente->nome }} não possui itens, clique <a href="" class="">aqui</a> para adicionar itens ao cliente!</p>
+                                                <p>Nenhum item para esse cliente!</p>
                                             @endif
                                         </div>
                                         <div class="modal-footer">
@@ -105,7 +107,14 @@
                                 <tr>
                                     <td>{{ $cliente->id }}</td>
                                     <td><a href="{{ route('cliente.show', $cliente->id) }}" class="nav-link p-0">{{ $cliente->nome }}</a></td>
+                                    <td>{{ $cliente->telefone }}</td>
+                                    <td>{{ $cliente->documento }}</td>
                                     <td class="d-flex justify-content-around">
+                                        <a href="{{ route('cliente.show', $cliente->id) }}" class="btn text-aqua">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
+                                                <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                            </svg>
+                                        </a>
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn text-aqua p-0" data-bs-toggle="modal" data-bs-target="#Modal_{{ $cliente->id }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">

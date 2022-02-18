@@ -17,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware('autorizacao')->group(function () {
     Route::resource('/cliente', ClienteController::class);
-    Route::get('/consulta_cliente', [ClienteController::class, 'consult'])->name('cliente.consulta');
+    Route::get('/consulta_cliente', [ClienteController::class, 'consulta'])->name('cliente.consulta');
+    Route::post('/consulta_cliente', [ClienteController::class, 'consultar'])->name('cliente.consultar');
     
     Route::resource('/item', ItemController::class);
-    Route::get('/consulta_item', [ItemController::class, 'consult'])->name('item.consulta');
+    Route::get('/consulta_item', [ItemController::class, 'consulta'])->name('item.consulta');
+    Route::post('/consulta_item', [ItemController::class, 'consultar'])->name('item.consultar');
     Route::get('/adicionar_item/{id}', [ItemController::class, 'adicionarShow'])->name('item.adicionar');
     Route::post('/adicionar_item/{cliente}', [ItemController::class, 'adicionar'])->name('item.adicionar');
     Route::get('/remover_item/{cliente}/{item}', [ItemController::class, 'remover'])->name('item.remover');

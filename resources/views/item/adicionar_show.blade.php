@@ -5,13 +5,13 @@
 @section('content')
     
     <div class="col mx-auto">
-        <h1 class="mt-5">Adicionar item ao cliente - {{ $cliente->nome }}</h1>
-        <div class="col-8 mx-auto">
+        <h1 class="mt-5">ADICIONAR ITEM AO CLIENTE - {{ $cliente->nome }}</h1>
+        <div class="col-10 mx-auto">
             @component('item._components.subMenu')
             
             @endcomponent
             <form action="{{ route('item.adicionar', $cliente->id) }}" class="row g-3 needs-validation" method="POST" novalidate>
-                <div class="bg-white p-4 rounded">
+                <div class="bg-white p-4 mb-3 rounded">
                     @csrf
                     
                     <div class="form-floating mb-3">
@@ -36,7 +36,7 @@
             <hr>
             <div class="table-responsive">
                 <h5>Itens do Cliente - {{ $cliente->nome }}</h5>
-                <div class="bg-white p-4 rounded">
+                <div class="bg-white p-4 mb-3 rounded">
                     @if(count($cliente->items) > 0)
                         <table class="table table-hover text-center" id="sortTable">
                             <thead>
