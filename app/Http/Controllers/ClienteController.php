@@ -14,7 +14,7 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        $clientes = Cliente::paginate(10);
+        $clientes = Cliente::orderBy('nome', 'asc')->paginate(10);
 
         return view('cliente.clientes', [
             'clientes' => $clientes,
@@ -131,6 +131,7 @@ class ClienteController extends Controller
         ->where('municipio', 'like', '%'.$request->municipio.'%')
         ->where('complemento', 'like', '%'.$request->complemento.'%')
         ->where('uf', 'like', '%'.$request->uf.'%')
+        ->orderBy('nome', 'asc')
         ->paginate(10);
         return view('cliente.clientes', [
             'clientes' => $clientes,

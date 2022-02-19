@@ -17,7 +17,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        $items = item::paginate(10);
+        $items = item::orderBy('nome', 'asc')->paginate(10);
 
         return view('item.items', [
             'items' => $items,
@@ -155,6 +155,7 @@ class ItemController extends Controller
         $items = Item::where('nome', 'like', '%'.$request->nome.'%')
         ->where('preco', 'like', '%'.$request->preco.'%')
         ->where('codigo', 'like', '%'.$request->codigo.'%')
+        ->orderBy('nome', 'asc')
         ->paginate(10);
 
         return view('item.items', [
