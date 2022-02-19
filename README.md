@@ -36,7 +36,7 @@ Existem algumas soluções.
     - 1 Na raiz do projeto localize a pasta config, dentro procure pelo arquivo "database.php"
     - 2 procure as configurações do mysql e busque pelas linhas 'charset' => 'utf8mb4' e 'collation' => 'utf8mb4_unicode_ci'
     removendo de seus valores o conteúdo 'mb4' deixando essas linhas dessa forma: 'charset' => 'utf8' e 'collation' => 'utf8_unicode_ci',
-    - 3 salve o arquivo e tente rodar o comando "php artisan migrate", novamente.
+    - 3 salve o arquivo, remova qualquer possível tabela já criada no banco e tente rodar o comando "php artisan migrate", novamente.
     
 Caso o erro percista siga os próximos passos:
 
@@ -52,5 +52,7 @@ Caso o erro percista siga os próximos passos:
     {
         Schema::defaultStringLength(191);
     }
+    
+    -salve o arquivo, remova qualquer possível tabela já criada no banco e tente rodar o comando "php artisan migrate", novamente.
     
 Ambas as soluções foram retiradas desse link: https://pt.stackoverflow.com/questions/292885/erro-laravel-migrate
