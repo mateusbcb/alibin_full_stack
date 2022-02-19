@@ -1,64 +1,56 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Teste de avaliação Alibin Full Stack
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Para realizar o projeto foi utilizado o Wamp server para iniciar todos os serviços do Apache e MySql assim como
+a obtenção do PHP
 
-## About Laravel
+## Requisitos:
+- PHP     - 7.4 ou superior
+- Apache  - 2.4 ou superior
+- MySQL   - 5.7 ou superior
+- MariaDB - 10.6 ou superior
+- Laravel - 7x ou superior
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Instalação
+- 01 - Faça o clone desse projeto
+- 02 - Faça uma copia do arquivo .env.example e renomeie para .env
+- 03 - Em seu banco de dados mysql crie um novo data base vazio e copie o nome do banco.
+- 04 - Edite o arquivo .env inserindo as configurações do banco de dados mysql (nome do banco, usuário e senha)
+- 05 - Abra o terminal de sua preferência na raiz do projeto
+- 06 - Execute o comando "php artisan migrate" - esse comando irá criar as tabelas no banco.
+    Caso tenha ocorrido o seguinte erro: 
+   - "Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes"
+   - siga as etapas de possivel erro mais a baixo.
+- 07 - Execute o comando "php artisan db:seed" - Essa etapa é opcional (ela irá popular o banco de dados)
+- 08 - Execute o comando "php artisan serve"
+- 09 - Abra seu navegador e entre com o endereço gerado pelo comando a cima (127.0.0.1:8000)
+- 10 - Caso tudo tenha dado certo você estará na página Principal, para acessar as páginas Clientes e Itens
+     é necessário estar logado e para isso é possível fazer o registro.
+     
+## Possível erro de migration
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Caso ocorra o erro "Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes"
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Existem algumas soluções.
 
-## Learning Laravel
+- 1 - Alterar o charset das configurações do laravel para o banco de dados
+    - 1 Na raiz do projeto localize a pasta config, dentro procure pelo arquivo "database.php"
+    - 2 procure as configurações do mysql e busque pelas linhas 'charset' => 'utf8mb4' e 'collation' => 'utf8mb4_unicode_ci'
+    removendo de seus valores o conteúdo 'mb4' deixando essas linhas dessa forma: 'charset' => 'utf8' e 'collation' => 'utf8_unicode_ci',
+    - 3 salve o arquivo e tente rodar o comando "php artisan migrate", novamente.
+    
+Caso o erro percista siga os próximos passos:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- 2 Procure o arquivo AppServiceProvider.php localizado em "app/Providers" e acrescente isto:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    -Importe o Schema.
+    
+    -use Illuminate\Support\Facades\Schema;
+    
+    Na função boot() deixe assim:
+    
+    public function boot()
+    {
+        Schema::defaultStringLength(191);
+    }
+    
+Ambas as soluções foram retiradas desse link: https://pt.stackoverflow.com/questions/292885/erro-laravel-migrate
